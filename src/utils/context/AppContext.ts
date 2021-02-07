@@ -1,11 +1,32 @@
-import { createContext } from 'react';
-type ContextProps = {
+import {createContext} from 'react';
+import {IEvent} from "../../models/event";
+import {IProfile} from "../../models/profile";
+import {IUser} from "../../models/user";
+
+export type AppContextState = {
+    users: IUser[],
     authenticated: boolean,
-    setAuthenticated: (_:boolean) => void,
-    profile: object,
-    setProfile: (_:object) => void,
+    setAuthenticated: (value: boolean) => void,
+    profile: IProfile | null,
+    setProfile: (value: IProfile | null) => void,
+    events: IEvent[],
+    setEvents: (value: IEvent[]) => void,
+    logout: () => void
 };
-const AppContext = createContext(<Partial<ContextProps>>({}));
+const contextDefaultValues: AppContextState = {
+    users: [],
+    authenticated: false,
+    setAuthenticated: () => {
+    },
+    profile: null,
+    setProfile: () => {
+    },
+    events: [],
+    setEvents: () => {
+    },
+    logout: () => {
+    }
+};
 
-
+const AppContext = createContext<AppContextState>(contextDefaultValues);
 export default AppContext;

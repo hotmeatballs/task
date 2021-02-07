@@ -1,4 +1,5 @@
-export interface IEventIdentity {
-    username: string;
-    password: string;
+export interface IEvent {
+    username: string,
+    date: string,
+
 }

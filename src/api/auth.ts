@@ -1,46 +1,31 @@
-import {IUserIdentity} from '../models/user'
+import {IUser} from '../models/user'
+import {IProfile} from "../models/profile";
 
 interface IAuthResponse {
     status: number;
-    data?: any;
+    profile: IProfile | null;
     errorText?: string;
 }
 
-const checkCredentials = (data: IUserIdentity): boolean => {
-    if ((data.username === 'Admin' && data.password === '12345') || (data.username === 'Admin2' && data.password === '12345')) {
-        return true
-    } else {
-        return false
-    }
+const checkCredentials = (users: IUser[], data: IUser): boolean => {
+    return !!users.find(x => x.username === data.username && x.password === data.password);
 }
 
-export const authenticate = (data: IUserIdentity): Promise<IAuthResponse> => {
+export const authenticate = (users: IUser[], data: IUser): IAuthResponse => {
     console.log(data);
-    const promise = new Promise<IAuthResponse>((resolve, reject) => {
-        if (!checkCredentials(data)) {
-            reject({
-                status: 500,
-                errorText: 'incorrect_login_or_password',
-            })
-        } else {
-            resolve({
-                status: 200,
-                data: 'ok',
-            })
-        }
-    })
-
-    return promise
-}
-
-export const checkAuthStatus = (): boolean => {
-    if (localStorage.getItem('tstz.authenticated')) {
-        return true
+    if (!checkCredentials(users, data)) {
+        return {
+            status: 500,
+            errorText: 'Error',
+            profile: null,
+        };
     } else {
-        return false
+        return {
+            status: 200,
+            profile: {
+                username: data.username,
+                token: '123'
+            },
+        };
     }
-}
-
-export const logout = (): void => {
-    window.localStorage.removeItem('tstz.authenticated')
 }
