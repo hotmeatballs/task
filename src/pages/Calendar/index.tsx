@@ -5,8 +5,7 @@ import moment from 'moment';
 
 const {Header, Content} = Layout;
 
-
-export default function LoginPage() {
+export default function CalendarPage() {
 
     const {profile, logout, users, setEvents, events} = useContext(AppContext);
     const [open, setOpen] = useState(false);
@@ -41,7 +40,7 @@ export default function LoginPage() {
             <ul className="events">
                 {listData.map(item => (
                     <li key={item.date}>
-                        <Badge status={'success'} text={'Событие'}/>
+                        <Badge status='success' text='Событие'/>
                     </li>
                 ))}
             </ul>
