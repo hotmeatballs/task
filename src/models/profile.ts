@@ -1,4 +1,4 @@
 export interface IProfile {
-    username: string;
-    token: string;
+  username: string;
+  token: string;
 }

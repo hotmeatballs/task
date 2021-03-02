@@ -1,5 +1,4 @@
 export interface IEvent {
-    username: string,
-    date: string,
-
+  username: string;
+  date: string;
 }
